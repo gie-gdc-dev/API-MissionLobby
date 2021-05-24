@@ -1,15 +1,9 @@
-import {
-  Entity,
-  PrimaryGeneratedColumn,
-  Column,
-  ManyToOne,
-  JoinColumn,
-} from 'typeorm';
 import { ApiHideProperty, ApiProperty } from '@nestjs/swagger';
 import { Exclude } from 'class-transformer';
-import { Player } from 'src/player/player.entity';
 import { Mission } from 'src/mission/mission.entity';
+import { Player } from 'src/player/player.entity';
 import { Team } from 'src/team/team.entity';
+import { Column, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity()
 export class Role {
@@ -20,7 +14,7 @@ export class Role {
   name: string;
 
   @Column({ default: false })
-  isBooked: boolean;
+  isLocked: boolean;
 
   @Column({ name: 'Condi' })
   condition: string;

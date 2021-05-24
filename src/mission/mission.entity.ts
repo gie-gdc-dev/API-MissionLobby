@@ -1,14 +1,7 @@
-import {
-  Entity,
-  PrimaryGeneratedColumn,
-  Column,
-  OneToMany,
-  ManyToMany,
-  JoinTable,
-} from 'typeorm';
 import { ApiProperty } from '@nestjs/swagger';
-import { Team } from 'src/team/team.entity';
 import { Role } from 'src/role/role.entity';
+import { Team } from 'src/team/team.entity';
+import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity()
 export class Mission {
@@ -24,4 +17,7 @@ export class Mission {
   @ApiProperty({ type: () => Role })
   @OneToMany(() => Role, (r) => r.mission, { cascade: true })
   roles: Role[];
+
+  @ApiProperty({type: () => Team})
+  @OneToMany(() => Team, (t) => t.mission, {cascade: true})
 }
