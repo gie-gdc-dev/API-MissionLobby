@@ -1,14 +1,13 @@
-import {
-  Entity,
-  PrimaryGeneratedColumn,
-  Column,
-  OneToMany,
-  BeforeInsert,
-  BeforeUpdate,
-} from 'typeorm';
 import { ApiHideProperty, ApiProperty } from '@nestjs/swagger';
 import * as bcrypt from 'bcrypt';
 import { Role } from 'src/role/role.entity';
+import {
+  BeforeInsert,
+  BeforeUpdate, Column, Entity,
+
+
+  OneToMany, PrimaryGeneratedColumn
+} from 'typeorm';
 
 @Entity()
 export class Player {
@@ -32,6 +31,6 @@ export class Player {
   }
 
   @ApiProperty({ type: () => Role })
-  @OneToMany(() => Role, (r) => r.player)
+  @OneToMany(() => Role, (r: Role) => r.player)
   roles: Role[];
 }

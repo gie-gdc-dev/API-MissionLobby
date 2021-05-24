@@ -20,7 +20,7 @@ export class Role {
   condition: string;
 
   @ApiProperty({ type: () => Mission })
-  @ManyToOne(() => Mission, (m) => m)
+  @ManyToOne(() => Mission, (m: Mission) => m)
   mission: Mission;
 
   @ApiHideProperty()
@@ -29,7 +29,7 @@ export class Role {
   missionId: number;
 
   @ApiProperty({ type: () => Team })
-  @ManyToOne(() => Team, (t) => t)
+  @ManyToOne(() => Team, (t: Team) => t)
   team: Team;
 
   @ApiHideProperty()
@@ -38,7 +38,7 @@ export class Role {
   teamId: number;
 
   @ApiProperty({ type: () => Player })
-  @ManyToOne(() => Player, (p) => p)
+  @ManyToOne(() => Player, (p: Player) => p)
   @JoinColumn()
   player: Player;
 

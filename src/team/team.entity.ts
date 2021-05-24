@@ -12,10 +12,10 @@ export class Team {
   name: string;
 
   @ApiProperty({type: () => Mission})
-  @ManyToOne(() => Mission, (m) => m)
+  @ManyToOne(() => Mission, (m: Mission) => m)
   mission: Mission;
 
   @ApiProperty({ type: () => Role })
-  @OneToMany(() => Role, (r) => r.team)
+  @OneToMany(() => Role, (r: Role) => r.team)
   players: Role[];
 }
