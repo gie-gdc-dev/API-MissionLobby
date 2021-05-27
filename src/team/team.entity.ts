@@ -1,7 +1,14 @@
-import { ApiProperty } from '@nestjs/swagger';
+import { ApiHideProperty, ApiProperty } from '@nestjs/swagger';
+import { Exclude } from 'class-transformer';
 import { Mission } from 'src/mission/mission.entity';
 import { Role } from 'src/role/role.entity';
-import { Column, Entity, ManyToOne, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
+import {
+  Column,
+  Entity,
+  ManyToOne,
+  OneToMany,
+  PrimaryGeneratedColumn,
+} from 'typeorm';
 
 @Entity()
 export class Team {
@@ -11,11 +18,16 @@ export class Team {
   @Column({ unique: true })
   name: string;
 
-  @ApiProperty({type: () => Mission})
+  @ApiProperty({ type: () => Mission })
   @ManyToOne(() => Mission, (m: Mission) => m)
   mission: Mission;
 
+  @ApiHideProperty()
+  @Column({ update: false })
+  @Exclude()
+  missionId: number;
+
   @ApiProperty({ type: () => Role })
   @OneToMany(() => Role, (r: Role) => r.team)
-  players: Role[];
+  roles: Role[];
 }
