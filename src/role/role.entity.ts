@@ -18,10 +18,10 @@ export class Role {
   @Column()
   name: string;
 
-  @Column({ default: false })
+  @Column('bool', { default: false })
   isLocked: boolean;
 
-  @Column({ default: 'true' })
+  @Column('text', { default: 'true' })
   openCondition: string;
 
   @ApiProperty({ type: () => Team })

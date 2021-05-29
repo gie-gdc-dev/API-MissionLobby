@@ -31,8 +31,8 @@ export class Player {
     this.password = await bcrypt.hash(this.password, 10);
   }
 
-  @Column({ default: false, update: false, insert: false })
-  isAdmin: boolean;
+  @Column({ type: 'bool', default: false, insert: false })
+  isAdmin = false;
 
   @ApiProperty({ type: () => Role })
   @OneToMany(() => Role, (r: Role) => r.player)

@@ -1,6 +1,19 @@
-import { Controller, UseGuards } from '@nestjs/common';
+import {
+  Controller,
+  Request,
+  UnauthorizedException,
+  UseGuards,
+} from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
-import { Crud, CrudAuth } from '@nestjsx/crud';
+import {
+  Crud,
+  CrudAuth,
+  CrudController,
+  CrudRequest,
+  Override,
+  ParsedBody,
+  ParsedRequest,
+} from '@nestjsx/crud';
 import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
 import { Player } from './player.entity';
 import { PlayerService } from './player.service';
@@ -28,7 +41,7 @@ import { PlayerService } from './player.service';
       'roles.team?.mission': {
         eager: true,
         required: false,
-        exclude: ['context', 'briefing', 'intel', 'equipment', 'credits'],
+        exclude: ['briefing'],
       },
     },
   },
@@ -47,4 +60,24 @@ import { PlayerService } from './player.service';
 @Controller('me')
 export class PlayerController {
   constructor(public service: PlayerService) {}
+
+  get base(): CrudController<Player> {
+    return this;
+  }
+
+  @Override()
+  @UseGuards(JwtAuthGuard)
+  async updateOne(
+    @Request() { user }: any,
+    @ParsedRequest() req: CrudRequest,
+    @ParsedBody() dto: Player,
+  ) {
+    if (
+      user.isAdmin ||
+      !['isAdmin'].some((el) => Object.keys(dto).includes(el))
+    ) {
+      return await this.base.updateOneBase(req, dto);
+    }
+    throw new UnauthorizedException();
+  }
 }
