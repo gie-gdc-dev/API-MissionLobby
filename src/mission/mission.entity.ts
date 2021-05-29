@@ -1,5 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
-import dayjs from 'dayjs';
+import * as dayjs from 'dayjs';
 import { Team } from 'src/team/team.entity';
 import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
 
@@ -11,14 +11,14 @@ export class Mission {
   @Column()
   name: string;
 
-  @Column({ default: dayjs().toISOString() })
-  date: string;
+  @Column()
+  date: string = dayjs().add(1, 'M').toISOString();
 
-  @Column({ default: dayjs().subtract(1, 'M').toISOString() })
-  openDate: string;
+  @Column()
+  openDate: string = dayjs().add(1, 'M').toISOString();
 
-  @Column({ default: dayjs().subtract(1, 'w').toISOString() })
-  closeDate: string;
+  @Column()
+  closeDate: string = dayjs().add(1, 'M').toISOString();
 
   @ApiProperty({ type: () => Team })
   @OneToMany(() => Team, (t: Team) => t.mission, { cascade: true })

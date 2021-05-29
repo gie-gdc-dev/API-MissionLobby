@@ -1,10 +1,8 @@
-import { Controller, UseGuards } from '@nestjs/common';
-import { Crud, CrudAuth } from '@nestjsx/crud';
+import { Controller } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
-
+import { Crud } from '@nestjsx/crud';
 import { Player } from './player.entity';
 import { PlayerService } from './player.service';
-import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
 
 @Crud({
   model: {

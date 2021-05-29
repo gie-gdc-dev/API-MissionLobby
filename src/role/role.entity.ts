@@ -34,7 +34,7 @@ export class Role {
   teamId: number;
 
   @ApiProperty({ type: () => Player })
-  @ManyToOne(() => Player, (p: Player) => p)
+  @ManyToOne(() => Player, (p: Player) => p, { nullable: true })
   player: Player;
 
   @ApiHideProperty()

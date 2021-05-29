@@ -1,7 +1,20 @@
-import { Controller } from '@nestjs/common';
-import { Crud } from '@nestjsx/crud';
+import {
+  Controller,
+  Request,
+  UnauthorizedException,
+  UseGuards,
+} from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
-
+import {
+  CreateManyDto,
+  Crud,
+  CrudController,
+  CrudRequest,
+  Override,
+  ParsedBody,
+  ParsedRequest,
+} from '@nestjsx/crud';
+import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
 import { Mission } from './mission.entity';
 import { MissionService } from './mission.service';
 
@@ -11,26 +24,89 @@ import { MissionService } from './mission.service';
   },
   query: {
     join: {
-      roles: {
+      teams: {
         eager: true,
       },
-      'roles.player': {
+      'teams.roles': {
+        eager: true,
+        required: false,
+      },
+      'teams.roles?.player': {
         eager: true,
         required: false,
         exclude: ['isAdmin', 'password'],
       },
-      'roles.team': {
-        eager: true,
-        required: false,
-      },
     },
-  },
-  routes: {
-    only: ['getOneBase', 'getManyBase'],
   },
 })
 @ApiTags('missions')
+@UseGuards(JwtAuthGuard)
 @Controller('missions')
 export class MissionController {
   constructor(public service: MissionService) {}
+
+  get base(): CrudController<Mission> {
+    return this;
+  }
+
+  @Override()
+  @UseGuards(JwtAuthGuard)
+  updateOne(
+    @Request() { user }: any,
+    @ParsedRequest() req: CrudRequest,
+    @ParsedBody() dto: Mission,
+  ) {
+    if (!user.isAdmin) {
+      throw new UnauthorizedException();
+    }
+    return this.base.updateOneBase(req, dto);
+  }
+
+  @Override()
+  @UseGuards(JwtAuthGuard)
+  replaceOne(
+    @Request() { user }: any,
+    @ParsedRequest() req: CrudRequest,
+    @ParsedBody() dto: Mission,
+  ) {
+    if (!user.isAdmin) {
+      throw new UnauthorizedException();
+    }
+    return this.base.replaceOneBase(req, dto);
+  }
+
+  @Override()
+  @UseGuards(JwtAuthGuard)
+  createOne(
+    @Request() { user }: any,
+    @ParsedRequest() req: CrudRequest,
+    @ParsedBody() dto: Mission,
+  ) {
+    if (!user.isAdmin) {
+      throw new UnauthorizedException();
+    }
+    return this.base.createOneBase(req, dto);
+  }
+
+  @Override()
+  @UseGuards(JwtAuthGuard)
+  createMany(
+    @Request() { user }: any,
+    @ParsedRequest() req: CrudRequest,
+    @ParsedBody() dto: CreateManyDto<Mission>,
+  ) {
+    if (!user.isAdmin) {
+      throw new UnauthorizedException();
+    }
+    return this.base.createManyBase(req, dto);
+  }
+
+  @Override()
+  @UseGuards(JwtAuthGuard)
+  deleteOne(@Request() { user }: any, @ParsedRequest() req: CrudRequest) {
+    if (!user.isAdmin) {
+      throw new UnauthorizedException();
+    }
+    return this.base.deleteOneBase(req);
+  }
 }

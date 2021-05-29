@@ -1,15 +1,13 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
-
-import { MissionService } from './mission.service';
 import { MissionController } from './mission.controller';
 import { Mission } from './mission.entity';
-import { MissionEditController } from './mission.auth.controller';
+import { MissionService } from './mission.service';
 
 @Module({
   imports: [TypeOrmModule.forFeature([Mission])],
   providers: [MissionService],
   exports: [MissionService],
-  controllers: [MissionController, MissionEditController],
+  controllers: [MissionController],
 })
 export class MissionModule {}

@@ -28,6 +28,6 @@ export class Team {
   missionId: number;
 
   @ApiProperty({ type: () => Role })
-  @OneToMany(() => Role, (r: Role) => r.team)
+  @OneToMany(() => Role, (r: Role) => r.team, { cascade: true })
   roles: Role[];
 }

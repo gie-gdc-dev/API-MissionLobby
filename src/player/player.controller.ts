@@ -1,10 +1,9 @@
 import { Controller, UseGuards } from '@nestjs/common';
-import { Crud, CrudAuth } from '@nestjsx/crud';
 import { ApiTags } from '@nestjs/swagger';
-
+import { Crud, CrudAuth } from '@nestjsx/crud';
+import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
 import { Player } from './player.entity';
 import { PlayerService } from './player.service';
-import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
 
 @Crud({
   model: {
@@ -22,11 +21,11 @@ import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
       roles: {
         eager: true,
       },
-      'roles.mission': {
+      'roles.team': {
         eager: true,
         required: false,
       },
-      'roles.team': {
+      'roles.team?.mission': {
         eager: true,
         required: false,
       },
