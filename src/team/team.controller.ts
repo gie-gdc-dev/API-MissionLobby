@@ -32,6 +32,7 @@ import { TeamService } from './team.service';
     join: {
       mission: {
         eager: true,
+        exclude: ['context', 'briefing', 'intel', 'equipment', 'credits'],
       },
       roles: {
         eager: true,

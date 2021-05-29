@@ -28,6 +28,7 @@ import { PlayerService } from './player.service';
       'roles.team?.mission': {
         eager: true,
         required: false,
+        exclude: ['context', 'briefing', 'intel', 'equipment', 'credits'],
       },
     },
   },

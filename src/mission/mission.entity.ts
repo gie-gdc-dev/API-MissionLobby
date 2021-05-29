@@ -20,6 +20,21 @@ export class Mission {
   @Column()
   closeDate: string = dayjs().add(1, 'M').toISOString();
 
+  @Column({ nullable: true })
+  context: string;
+
+  @Column({ nullable: true })
+  briefing: string;
+
+  @Column({ nullable: true })
+  intel: string;
+
+  @Column({ nullable: true })
+  equipment: string;
+
+  @Column({ nullable: true })
+  credits: string;
+
   @ApiProperty({ type: () => Team })
   @OneToMany(() => Team, (t: Team) => t.mission, { cascade: true })
   teams: Team[];

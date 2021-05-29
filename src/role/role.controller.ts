@@ -39,6 +39,7 @@ import { RoleService } from './role.service';
       },
       'team.mission': {
         eager: true,
+        exclude: ['context', 'briefing', 'intel', 'equipment', 'credits'],
       },
       player: {
         eager: true,
