@@ -1,6 +1,5 @@
 import { NestFactory } from '@nestjs/core';
-import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
-
+import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import { AppModule } from './app.module';
 
 async function bootstrap() {
@@ -10,13 +9,13 @@ async function bootstrap() {
   });
 
   const options = new DocumentBuilder()
-    .setTitle('GDCLobby API')
-    .setDescription('Simple API for GDCLobby')
+    .setTitle('MissionLobby API')
+    .setDescription('API for MissionLobby')
     .setVersion('1.0.0')
     .build();
   const document = SwaggerModule.createDocument(app, options);
   SwaggerModule.setup('/doc', app, document, {
-    customSiteTitle: 'GDCLobby API',
+    customSiteTitle: 'MissionLobby API',
   });
 
   await app.listen(3000);

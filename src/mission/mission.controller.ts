@@ -40,7 +40,6 @@ import { MissionService } from './mission.service';
   },
 })
 @ApiTags('missions')
-@UseGuards(JwtAuthGuard)
 @Controller('missions')
 export class MissionController {
   constructor(public service: MissionService) {}

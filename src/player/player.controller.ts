@@ -55,8 +55,7 @@ import { PlayerService } from './player.service';
     id: user.userId,
   }),
 })
-@ApiTags('me')
-@UseGuards(JwtAuthGuard)
+@ApiTags('players')
 @Controller('me')
 export class PlayerController {
   constructor(public service: PlayerService) {}
