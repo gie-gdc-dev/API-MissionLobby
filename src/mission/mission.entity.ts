@@ -12,13 +12,13 @@ export class Mission {
   name: string;
 
   @Column('timestamp')
-  date: string = dayjs().add(1, 'M').toISOString();
+  date: string = dayjs().add(1, 'M').add(1, 'w').toISOString();
 
   @Column('timestamp')
   openDate: string = dayjs().toISOString();
 
   @Column('timestamp')
-  closeDate: string = dayjs().add(1, 'M').subtract(1, 'w').toISOString();
+  closeDate: string = dayjs().add(1, 'M').toISOString();
 
   @Column('json', { nullable: true })
   briefing: unknown;
