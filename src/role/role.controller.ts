@@ -70,7 +70,7 @@ export class RoleController {
       user.isAdmin ||
       ((role.player === null || role.playerId === user.userId) &&
         !role.isLocked &&
-        !['condition', 'isBooked', 'missionId', 'name'].some((el) =>
+        !['openCondition', 'isLocked', 'teamId', 'name'].some((el) =>
           Object.keys(roleDTO).includes(el),
         ))
     ) {
