@@ -1,5 +1,6 @@
 import { ApiHideProperty, ApiProperty } from '@nestjs/swagger';
 import { Exclude } from 'class-transformer';
+import * as dayjs from 'dayjs';
 import { Mission } from 'src/mission/mission.entity';
 import { Player } from 'src/player/player.entity';
 import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
@@ -11,6 +12,9 @@ export class Log {
 
   @Column()
   reason: string;
+
+  @Column('timestamp')
+  date: string = dayjs().toISOString();
 
   @ApiProperty({ type: () => Player })
   @ManyToOne(() => Player, (p: Player) => p, { nullable: true })
