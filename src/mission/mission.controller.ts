@@ -30,11 +30,13 @@ import { MissionService } from './mission.service';
       'teams.roles': {
         eager: true,
         required: false,
+        alias: 'teamsRoles',
       },
-      'teams.roles?.player': {
+      'teams.roles.player': {
         eager: true,
         required: false,
         exclude: ['isAdmin', 'password'],
+        alias: 'teamsRolesPlayer',
       },
     },
   },

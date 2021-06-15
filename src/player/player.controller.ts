@@ -37,11 +37,13 @@ import { PlayerService } from './player.service';
       'roles.team': {
         eager: true,
         required: false,
+        alias: 'rolesTeam',
       },
-      'roles.team?.mission': {
+      'roles.team.mission': {
         eager: true,
         required: false,
         exclude: ['briefing'],
+        alias: 'rolesTeamMission',
       },
     },
   },
